@@ -1,0 +1,7 @@
+setBadness('devel-file-in-non-devel-package', 0)
+addFilter('devel-file-in-non-devel-package .* /usr/.*/libguile-mu.so')
+
+addFilter('obsolete-not-provided muile')
+
+setBadness('shlib-policy-name-error', 0)
+addFilter('shlib-policy-name-error .* libguile-mu0')

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Terminal=false
+Exec=mug
+Icon=mug
+Type=Application
+Categories=
+Name=Mug
+GenericName=Email search and indexing
+

@@ -1,0 +1,22 @@
+--- toys/mug/Makefile.in.orig	2012-10-16 07:46:55.699631461 +0200
++++ toys/mug/Makefile.in	2012-10-16 07:47:19.795648536 +0200
+@@ -325,7 +325,7 @@
+ # enforce compiling this dir first before decending into tests/
+ SUBDIRS = .
+ INCLUDES = -I${top_srcdir} -I${top_srcdir}/lib $(GTK_CFLAGS) $(WEBKIT_CFLAGS) \
+-	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(abs_srcdir)"' \
++	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(DATADIR)"' \
+ 	-DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE
+ 
+ 
+--- toys/mug/Makefile.am.orig	2012-10-16 07:47:24.079651573 +0200
++++ toys/mug/Makefile.am	2012-10-16 07:47:34.867659219 +0200
+@@ -20,7 +20,7 @@
+ SUBDIRS= .
+ 
+ INCLUDES=-I${top_srcdir} -I${top_srcdir}/lib $(GTK_CFLAGS) $(WEBKIT_CFLAGS) \
+-	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(abs_srcdir)"' \
++	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(DATADIR)"' \
+ 	-DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE
+ 
+ # don't use -Werror, as it might break on other compilers
