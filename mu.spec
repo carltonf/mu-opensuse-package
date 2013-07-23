@@ -139,9 +139,6 @@ mu4e enable utilizing mu from within Emacs.
 %__make %{?_smp_flags} V=1 \
     DATADIR="%{_datadir}/mug"
 
-%__install -D -m0644 toys/mug/mug.svg \
-    "%{buildroot}%{_datadir}/mug/mug.svg"
-
 %install
 %makeinstall
 
@@ -153,6 +150,9 @@ mu4e enable utilizing mu from within Emacs.
 %__install -D -m0755 toys/mug/mug "%{buildroot}%{_bindir}/mug"
 %__install -D -m0644 "%{SOURCE1}" "%{buildroot}%{_datadir}/applications/mug.desktop"
 %__install -D -m0644 "%{SOURCE2}" "%{buildroot}%{_datadir}/pixmaps/mug.png"
+%__install -D -m0644 toys/mug/mug.svg \
+    "%{buildroot}%{_datadir}/mug/mug.svg"
+
 %suse_update_desktop_file -r mug Network Email
 %else
 %__rm -f "%{buildroot}%{_mandir}/man1"/mug.1*
