@@ -2,8 +2,50 @@
 
 most recent stable version of mu package for opensuse stable
 
-[[http://www.djcbsoftware.nl/code/mu/][Official Site]]
+See [[http://www.djcbsoftware.nl/code/mu/][official site]] for more details.
+
+** Main features
 
 1. newest version 0.9.9.5
 
 2. mu4e is built by default.
+
+** TODO List
+
+*** =install= warnings
+   
+During build & installation, there are some warnings. This might be the problem
+of upstream.
+   
+#+BEGIN_SRC text
+  [   63s] install-info: excess command line argument `.'
+  [   63s] install-info: excess command line argument `..'
+  [   63s] install-info: excess command line argument `.build'
+  [   63s] install-info: excess command line argument `.build-changelog'
+  [   63s] install-info: excess command line argument `.build.command'
+  [   63s] install-info: excess command line argument `.build.log'
+  [   63s] install-info: excess command line argument `.build.packages'
+  [   63s] install-info: excess command line argument `.build_patchrpmcheck1'
+  [   63s] install-info: excess command line argument `.build_patchrpmcheck_scr'
+  [   63s] install-info: excess command line argument `.buildenv'
+  [   63s] install-info: excess command line argument `.guessed_dist'
+  [   63s] install-info: excess command line argument `.reorder'
+#+END_SRC
+
+*** random failures in =%check= phase
+
+#+BEGIN_SRC text
+: [  201s] make[3]: Leaving directory `/home/abuild/rpmbuild/BUILD/mu-0.9.9.5/guile/tests'
+: [  201s] TEST: test-mu-guile... (pid=7663)
+: [  202s]   /guile/queries:                                                      **
+: [  202s] ERROR:test-mu-guile.c:87:test_something: assertion failed: (result == 0)
+: [  202s] FAIL
+: [  202s] GTester: last random seed: R02S59957ff700c551a1b7e97787117ca560
+: [  202s] /bin/sh: line 5:  7662 Terminated              gtester --verbose test-mu-guile
+: [  202s] make[2]: *** [test] Error 143
+: [  202s] make[2]: Leaving directory `/home/abuild/rpmbuild/BUILD/mu-0.9.9.5/guile/tests'
+: [  202s] make[1]: *** [test] Error 2
+: [  202s] make[1]: Leaving directory `/home/abuild/rpmbuild/BUILD/mu-0.9.9.5/guile'
+: [  202s] make: *** [test] Error 2
+: [  202s] error: Bad exit status from /var/tmp/rpm-tmp.JcCVwO (%check)
+#+BEGIN_SRC
