@@ -1,22 +1,26 @@
---- toys/mug/Makefile.in.orig	2012-10-16 07:46:55.699631461 +0200
-+++ toys/mug/Makefile.in	2012-10-16 07:47:19.795648536 +0200
-@@ -325,7 +325,7 @@
+Index: toys/mug/Makefile.in
+===================================================================
+--- toys/mug/Makefile.in.orig
++++ toys/mug/Makefile.in
+@@ -336,7 +336,7 @@ TEST_PROGS =
  # enforce compiling this dir first before decending into tests/
  SUBDIRS = .
- INCLUDES = -I${top_srcdir} -I${top_srcdir}/lib $(GTK_CFLAGS) $(WEBKIT_CFLAGS) \
+ AM_CPPFLAGS = -I${top_srcdir} -I${top_srcdir}/lib $(GTK_CFLAGS) $(WEBKIT_CFLAGS) \
 -	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(abs_srcdir)"' \
 +	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(DATADIR)"' \
  	-DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE
  
  
---- toys/mug/Makefile.am.orig	2012-10-16 07:47:24.079651573 +0200
-+++ toys/mug/Makefile.am	2012-10-16 07:47:34.867659219 +0200
-@@ -20,7 +20,7 @@
+Index: toys/mug/Makefile.am
+===================================================================
+--- toys/mug/Makefile.am.orig
++++ toys/mug/Makefile.am
+@@ -20,7 +20,7 @@ include $(top_srcdir)/gtest.mk
  SUBDIRS= .
  
- INCLUDES=-I${top_srcdir} -I${top_srcdir}/lib $(GTK_CFLAGS) $(WEBKIT_CFLAGS) \
+ AM_CPPFLAGS=-I${top_srcdir} -I${top_srcdir}/lib $(GTK_CFLAGS) $(WEBKIT_CFLAGS) \
 -	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(abs_srcdir)"' \
-+	-DICONDIR='"$(icondir)"' -DMUGDIR='"$(DATADIR)"' \
++        -DICONDIR='"$(icondir)"' -DMUGDIR='"$(DATADIR)"'  \
  	-DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE
  
  # don't use -Werror, as it might break on other compilers
