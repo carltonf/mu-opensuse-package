@@ -12,7 +12,7 @@
 %define with_guile 0
 %endif
 
-%define build_mu4e 1
+%define with_mu4e 1
 
 Name:               mu
 Version:            0.9.9.5
@@ -31,10 +31,15 @@ License:            GPL-3.0+
 BuildRoot:          %{_tmppath}/build-%{name}-%{version}
 %if %with_mug
 BuildRequires:      gtk3-devel
-BuildRequires:      libwebkit-devel
+BuildRequires:      libwebkitgtk3-devel
 %endif
 %if %with_guile
 BuildRequires:      guile-devel
+BuildRequires:      guile
+%endif
+%if %with_mu4e
+BuildRequires:      emacs-nox
+BuildRequires:      emacs-el
 %endif
 %if 0%{?suse_version} < 1210
 BuildRequires:      gmime-2_4-devel
@@ -51,6 +56,7 @@ BuildRequires:      update-desktop-files
 Requires:           xdg-utils
 Provides:           maildir-utils = %{version}
 Provides:           muile = %{version}
+Provides:           mu4e = %{version}
 Obsoletes:          muile < %{version}
 Obsoletes:          mu4e < %{version}
 
@@ -108,11 +114,11 @@ that, you can quickly find message using a powerful query language.
 Mug is a GUI for mu.
 %endif
 
-%if %build_mu4e
+%if %with_mu4e
 %package -n mu4e
-Summary:            an e-mail client for emacs with mu as backend
+Summary:            An e-mail client for emacs with mu as backend
 Requires:           emacs
-Group:              System/Libraries
+Requires:           mu = %{version}
 
 %description -n mu4e
 Through mu, mu4e sits on top of your Maildir (which you update with e.g.
@@ -121,7 +127,7 @@ of e-mail; searching, reading, replying, moving, deleting. The overall 'feel' is
 a bit of a mix of dired and Wanderlust.
 
 mu4e enable utilizing mu from within Emacs.
-%endif # build_mu4e
+%endif
 
 
 %prep
@@ -131,9 +137,11 @@ mu4e enable utilizing mu from within Emacs.
 %build
 %configure \
 %if %with_mug
-    --with-gui=gtk3
+    --enable-gtk \
+    --enable-webkit
 %else
-    --with-gui=none
+    --disable-gtk \
+    --disable-webkit
 %endif
 
 %__make %{?_smp_flags} V=1 \
@@ -171,7 +179,7 @@ mu4e enable utilizing mu from within Emacs.
 %install_info_delete --info-dir="%{_infodir}" "%{_infodir}/mu-guile.info".*
 %endif
 
-%if %build_mu4e
+%if %with_mu4e
 %post   -n mu4e
 /sbin/ldconfig
 %install_info --info-dir="%{_infodir}" "%{_infodir}/mu4e.info" .*
@@ -179,7 +187,7 @@ mu4e enable utilizing mu from within Emacs.
 %postun -n mu4e
 /sbin/ldconfig
 %install_info_delete --info-dir="%{_infodir}" "%{_infodir}/mu4e.info" .*
-%endif #
+%endif
 
 
 %clean
@@ -193,6 +201,7 @@ mu4e enable utilizing mu from within Emacs.
 %doc %{_mandir}/man1/mu.1%{ext_man}
 %doc %{_mandir}/man1/mu-*.1%{ext_man}
 %doc %{_mandir}/man5/mu-*.5%{ext_man}
+%dir %{_datadir}/mu
 
 %if %with_guile
 %files -n mu-guile
@@ -204,6 +213,7 @@ mu4e enable utilizing mu from within Emacs.
 %dir %{_datadir}/guile/site/*.*
 %{_datadir}/guile/site/*.*/mu.scm
 %{_datadir}/guile/site/*.*/mu
+%{_datadir}/mu/scripts/
 %doc %{_infodir}/mu-guile.info*
 %endif
 
@@ -217,10 +227,11 @@ mu4e enable utilizing mu from within Emacs.
 %doc %{_mandir}/man1/mug.1%{ext_man}
 %endif
 
-%if %build_mu4e
+%if %with_mu4e
 %files -n mu4e
 %defattr(-,root,root)
-%{_datadir}/emacs/site-lisp/mu4e/*
+%{_datadir}/emacs/site-lisp/mu4e
+%doc %{_infodir}/mu4e.info*
 %endif # mu4e
 
 %changelog
