@@ -1,0 +1,9 @@
+* mu-opensuse-package
+
+most recent stable version of mu package for opensuse stable
+
+[[http://www.djcbsoftware.nl/code/mu/][Official Site]]
+
+1. newest version 0.9.9.5
+
+2. mu4e is built by default.
